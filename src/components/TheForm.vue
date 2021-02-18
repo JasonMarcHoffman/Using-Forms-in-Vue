@@ -108,12 +108,19 @@
       </div>
     </div>
 
+    <!-- CUSTOM RATING COMPONENT -->
+    <div class="form-control">
+      <!-- v-model on a custom component adds a modelValue Prop -->
+      <rating-control v-model="rating"></rating-control>
+      <!-- v-model does the following behind the scenes: -->
+      <!-- <rating-control :model-value="" @update:modelValue=""></rating-control> -->
+    </div>
+
     <!-- Single Checkox -->
     <div class="form-control">
       <input type="checkbox" id="confirm-terms" name="confirm-terms" v-model="confirm">
       <label for="confirm-terms">Confirm Terms and conditions</label>
     </div>
-
 
     <!-- Save Button -->
     <div>
@@ -123,7 +130,12 @@
 </template>
 
 <script>
+import RatingControl from './RatingControl.vue'
+
 export default {
+  components: {
+    RatingControl
+  },
   data() {
     return {
       userName: '',
@@ -132,6 +144,7 @@ export default {
       // when using checkboxes we need to set it to an empty array
       interest: [],
       how: null,
+      rating: null,
       confirm: false,
       userNameValidity: 'pending'
     }
@@ -163,6 +176,10 @@ export default {
       // SINGLE CHECKBOX
       console.log('Terms: ' + this.confirm)
       this.confirm = false
+
+      // CUSTOM BUTTON COMPONENT
+      console.log('Rating: ' + this.rating)
+      this.rating = null
     },
     validateInput() {
       if (this.userName === '') {
